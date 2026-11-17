@@ -1,3 +1,4 @@
+function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());var d=Math.round((Date.UTC(2026,10,19)-t)/86400000);return d>0?"D-"+d:(d===0?"D-DAY":"종료");}
 (function(){
   "use strict";
   var C = window.FC_CASES, T = window.FC_TIMELINE, P = window.FC_POWER, S = window.FC_SUNEUNG, FN = window.FactNyang;
@@ -188,7 +189,7 @@
       '<article class="card intro"><div class="intro-cat">'+FN.svg("happy",96)+'</div><div><h2 class="card-h">팩트냥이는 누구?</h2><p><b>팩트냥이는 확인된 사실만 물어오는 고양이예요. 확인 안 된 사람에게 ○○냥이라고 부르지 않아요.</b></p><p class="muted">이 사이트의 오리지널 캐릭터로, 온라인에서 고득점자를 조롱하는 \'○○냥이\' 밈과는 관계없어요.</p></div></article>'+
       '<article class="card" id="info-meme"><h2 class="card-h">\'○○냥이\' 밈은 어디서 왔나</h2><p><b>\'세무냥이\'는 자백한 세무사 수석 합격자 A씨가 온라인에서 쓰던 본인 닉네임</b>이에요. 자백 뒤 누리꾼들이 이를 비꼬아 다른 시험의 고득점자·단기 합격자에게 \'리트냥이\', \'편입냥이\' 등을 붙이면서 밈이 됐어요.</p><p><b>별칭이 붙었다는 것은 근거가 아니에요.</b> 전문가들은 한 사건의 분노가 무관한 고득점자 전반으로 옮겨가는 \'혐오 전이\'를 우려해요.</p><p class="srcline">출처: <a href="https://www.yna.co.kr/view/AKR20261116107100505" target="_blank" rel="noopener">연합뉴스 [소셜+]</a> · <a href="https://www.knnews.co.kr/news/articleView.php?idxno=1555305" target="_blank" rel="noopener">경남신문</a></p></article>'+
       '<article class="card"><h2 class="card-h">판정 기준</h2><ul class="crit">'+crit+'</ul></article>'+
-      '<article class="card" id="info-suneung"><h2 class="card-h"><span class="dday-badge">D-2</span> 11월 19일 수능, 이렇게 달라져요</h2><ul class="snl">'+sn+'</ul><details class="more-src"><summary>출처 '+S.sources.length+'건</summary><ol class="srcs">'+ss+'</ol></details><p class="muted">국가자격시험 부정행위는 Q-Net 부정신고센터(로그인 필요)나 공단 방문으로 제보할 수 있어요.</p></article>'+
+      '<article class="card" id="info-suneung"><h2 class="card-h"><span class="dday-badge">'+sunDday()+'</span> 11월 19일 수능, 이렇게 달라져요</h2><ul class="snl">'+sn+'</ul><details class="more-src"><summary>출처 '+S.sources.length+'건</summary><ol class="srcs">'+ss+'</ol></details><p class="muted">국가자격시험 부정행위는 Q-Net 부정신고센터(로그인 필요)나 공단 방문으로 제보할 수 있어요.</p></article>'+
       '<article class="card"><h2 class="card-h">이용 원칙</h2><ul class="bul"><li><b>실명을 쓰지 않아요.</b> 자백·유죄가 확정되지 않은 사람은 \'리트 전 영역 만점자\'처럼, 자백한 사람도 \'세무사 수석 합격자 A씨\'로만 적어요.</li><li><b>의혹·조사중은 부정행위가 확인되지 않은 사례예요.</b> 반대 근거와 당사자 해명을 함께 실어요.</li><li><b>커뮤니티 캡처·개인정보는 싣지 않아요.</b> 수치는 출처의 공식 자료·언론 보도 기준이에요.</li><li><b>새 공식 자료가 나오면 판정을 바꿔요.</b> \'의혹\'은 유죄 추정이 아니에요.</li></ul></article>'+
       '<article class="card"><h2 class="card-h">아직 확인하지 못한 것</h2><ul class="bul"><li><b>세무사 66명 중 수석 외 개인:</b> 공단·TF 재점검 결과가 아직 없어요.</li><li><b>A씨 제출 기기의 실제 사용·공범 여부:</b> 경찰 포렌식 결과 전이에요.</li><li><b>익명 주장:</b> 관세사 \'생동차 10명\', 감정평가사 수기 비공개 이유, 논술 목격담은 공식 자료로 확인되지 않아요.</li><li><b>커뮤니티 전용 루머:</b> 공기업 필기 복원, 치전원·의대 관련 소문 등은 근거 자료가 없어 카드로 만들지 않았어요.</li><li><b>확인 시점 이후:</b> 11-19 리트 만점자 공개 풀이와 수능 당일 적발 결과는 반영되지 않았어요.</li></ul></article>'+
       '<p class="foot">마지막 확인 '+esc(window.FC_UPDATED_TIME)+' KST · 오프라인 정적 사이트(외부 스크립트·웹폰트 없음). 출처 링크를 열 때만 인터넷이 필요해요.</p>';
@@ -207,7 +208,7 @@
     $("stats").insertAdjacentHTML("beforeend", st);
 
     var info=$("info");
-    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-meme","밈 유래"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 D-2"]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
+    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-meme","밈 유래"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 "+sunDday()]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
     var law='<article class="card" id="info-law"><h2 class="card-h">처벌 기준, 얼마나 무거울까?</h2>'+
       '<p class="muted">시험 부정은 ① 시험 무효·응시 제한 같은 <b>행정 제재</b>와 ② 형법상 <b>형사 처벌</b>이 따로 적용될 수 있어요.</p>'+
       '<div class="crime">'+G.crimes.map(function(c){return '<div class="crime-c"><span class="crime-law">'+esc(c[0])+'</span><b>'+esc(c[1])+'</b><span class="crime-p">'+esc(c[2])+'</span><small>'+esc(c[3])+'</small><a href="'+esc(c[4])+'" target="_blank" rel="noopener">조문 보기 ↗</a></div>';}).join("")+'</div>'+
