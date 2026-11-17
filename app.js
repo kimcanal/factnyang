@@ -208,7 +208,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
     $("stats").insertAdjacentHTML("beforeend", st);
 
     var info=$("info");
-    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-meme","밈 유래"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 "+sunDday()]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
+    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-meme","밈 유래"],["info-postpone","수능 연기"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 "+sunDday()]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
     var law='<article class="card" id="info-law"><h2 class="card-h">처벌 기준, 얼마나 무거울까?</h2>'+
       '<p class="muted">시험 부정은 ① 시험 무효·응시 제한 같은 <b>행정 제재</b>와 ② 형법상 <b>형사 처벌</b>이 따로 적용될 수 있어요.</p>'+
       '<div class="crime">'+G.crimes.map(function(c){return '<div class="crime-c"><span class="crime-law">'+esc(c[0])+'</span><b>'+esc(c[1])+'</b><span class="crime-p">'+esc(c[2])+'</span><small>'+esc(c[3])+'</small><a href="'+esc(c[4])+'" target="_blank" rel="noopener">조문 보기 ↗</a></div>';}).join("")+'</div>'+
@@ -226,7 +226,24 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
       '<div class="dodont"><div class="do"><h4>이렇게</h4><ul>'+R.dos.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul></div><div class="dont"><h4>이건 안 돼요</h4><ul>'+R.donts.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul></div></div>'+
       '<h3 class="card-h3">알아둘 법</h3><ul class="sanc">'+R.laws.map(function(l){return '<li><span class="sanc-x">'+esc(l[0])+'</span><span class="sanc-b"><b>'+esc(l[1])+'</b><a href="'+esc(l[2])+'" target="_blank" rel="noopener">조문 보기 ↗</a></span></li>';}).join("")+'</ul></article>';
     // 소개 카드 뒤에 바로가기, 판정 기준 뒤에 새 섹션들
+    var P=G.postpone;
+    var vids=(P&&P.videos||[]).map(function(v){
+      return '<li><a class="v-t" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+esc(v.title)+' ↗</a><span class="v-meta">'+esc(v.channel)+' · '+esc(v.date)+'</span><p>'+esc(v.claim)+'</p></li>';
+    }).join("");
+    var st=(P&&P.statements||[]).map(function(s){
+      return '<li><b>'+esc(s.name)+'</b> <span class="v-meta">'+esc(s.role)+' · '+esc(s.date)+' · '+esc(s.via)+'</span><p>'+esc(s.claim)+'</p><a class="v-src" href="'+esc(s.src)+'" target="_blank" rel="noopener">출처: '+esc(s.srcName)+' ↗</a></li>';
+    }).join("");
+    var prec=(P&&P.precedent||[]).map(function(r){ return '<li><span class="prec-y">'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></li>'; }).join("");
+    var post = P ? ('<article class="card" id="info-postpone"><h2 class="card-h">수능 연기 논란, 어떻게 됐나</h2>'+
+      P.summary.map(function(t){return '<p>'+lead(t)+'</p>';}).join("")+
+      '<div class="vs" role="group" aria-label="주장과 공식 입장"><div class="vs-c claim"><div class="vs-k">연기 주장</div><p>대책이 충분하지 않으면 시험을 미루거나, 최소한 연기 검토와 비상 대책을 준비해야 한다는 요구가 나왔어요.</p></div><div class="vs-c off"><div class="vs-k">'+esc(P.official.label)+'</div>'+P.official.items.map(function(t){return '<p>'+lead(t)+'</p>';}).join("")+'</div></div>'+
+      '<h3 class="card-h3">확인된 유튜브 영상</h3><p class="muted small">주소가 열리는 영상만 실었어요. 아래 한 줄은 주장 요약이며, 팩트냥이의 평가가 아니에요.</p><ul class="vlist">'+vids+'</ul>'+
+      '<h3 class="card-h3">SNS·공개 발언</h3><p class="muted small">원본 SNS 주소를 확인하지 못해, 보도된 발언을 뉴스 출처와 함께 적어요.</p><ul class="vlist">'+st+'</ul>'+
+      '<h3 class="card-h3">청원은?</h3><p>'+esc(P.petition)+'</p>'+
+      '<h3 class="card-h3">과거에도 미룬 적 있나</h3><ul class="prec">'+prec+'</ul>'+
+      srcList(P.sources)+'</article>') : "";
     var intro=info.querySelector(".intro"); if(intro) intro.insertAdjacentHTML("afterend", nav);
+    var meme=$("info-meme"); if(meme && post) meme.insertAdjacentHTML("afterend", post);
     var sun=$("info-suneung"); if(sun) sun.insertAdjacentHTML("beforebegin", law+world+meas+open+rep);
   })();
 
