@@ -259,6 +259,63 @@ td small{display:block;color:var(--ink-3);font-size:.75rem}
 .srcs li{margin:.55em 0;line-height:1.45}.srcs span{display:block;font-size:.78rem;color:var(--ink-3)}
 .foot{font-size:.8rem;color:var(--ink-3);text-align:center;padding:var(--s4) var(--s2)}
 
+/* 배경 정보 섹션 */
+.card-h3{font-size:1rem;font-weight:850;margin:var(--s5) 0 var(--s2)}
+.small{font-size:.82rem}
+.jump{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--s4)) var(--s4);padding:2px var(--s4)}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;text-decoration:none;font-weight:750;font-size:.9rem;color:var(--brand);background:var(--brand-soft);border-radius:var(--r-pill);padding:9px 14px;min-height:40px}
+.hb{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hb li{display:grid;grid-template-columns:1fr auto;grid-template-areas:"l v" "t t";gap:4px 8px;align-items:baseline}
+.hb-l{grid-area:l;font-size:.9rem;font-weight:650}
+.hb-v{grid-area:v;font-weight:850;font-variant-numeric:tabular-nums}.hb-v small{font-size:.74rem;color:var(--ink-3);margin-left:4px;font-weight:650}
+.hb-track{grid-area:t;height:12px;border-radius:var(--r-pill);background:color-mix(in srgb,var(--bar-a) 35%,transparent);overflow:hidden}
+.hb-bar{display:block;height:100%;border-radius:var(--r-pill);background:linear-gradient(90deg,var(--bar-b),var(--bar-a))}
+.hb-bar.hi{background:linear-gradient(90deg,var(--hi-b),var(--hi-a))}
+.tl-mini{list-style:none;margin:var(--s3) 0 0;padding:0;display:grid;gap:var(--s2)}
+.tl-mini li{display:grid;grid-template-columns:1fr;gap:var(--s2);background:var(--surface-2);border-radius:var(--r-sm);padding:var(--s3);font-size:.92rem;line-height:1.55}
+.tl-mini b{font-variant-numeric:tabular-nums;color:var(--brand)}
+.crime{display:grid;gap:var(--s3);margin-top:var(--s3)}
+.crime-c{display:flex;flex-direction:column;gap:2px;background:linear-gradient(135deg,var(--conf-bg),var(--surface));border:1.5px solid var(--conf-line);border-radius:var(--r-md);padding:var(--s4)}
+.crime-law{font-size:.76rem;font-weight:850;color:var(--conf)}
+.crime-c b{font-size:1.05rem}
+.crime-p{font-size:1.12rem;font-weight:900;color:var(--conf);letter-spacing:-.01em}
+.crime-c small{font-size:.86rem;color:var(--ink-2);line-height:1.5;margin-top:4px}
+.crime-c a{font-size:.82rem;font-weight:700;margin-top:4px}
+.sanc{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.sanc li{display:grid;grid-template-columns:92px 1fr;gap:var(--s3);align-items:start;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2)}
+.sanc-x{font-weight:850;font-size:.9rem;color:var(--brand)}
+.sanc-b{display:flex;flex-direction:column;gap:2px;font-size:.93rem;line-height:1.5}
+.sanc-b b{font-weight:700}.sanc-b a{font-size:.8rem;font-weight:650}
+.prec{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.prec li{display:grid;grid-template-columns:52px 1fr;gap:var(--s2);font-size:.93rem;line-height:1.55;padding:var(--s2) 0;border-bottom:1px dashed var(--line)}
+.prec-y{font-weight:900;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.world{display:grid;gap:var(--s3)}
+.w-c{border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4);background:var(--surface)}
+.w-top{display:flex;align-items:center;gap:var(--s2);font-size:.88rem}
+.w-flag{display:inline-grid;place-items:center;width:30px;height:22px;border-radius:6px;background:var(--plan-bg);color:var(--plan);font-size:.72rem;font-weight:900;letter-spacing:.04em}
+.w-d{margin-left:auto;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.w-c h3{font-size:1.02rem;font-weight:850;margin:var(--s2) 0 var(--s1);line-height:1.4}
+.w-c p{font-size:.93rem;line-height:1.62;margin:.4em 0}
+.mtab{min-width:640px;font-size:.84rem}
+.mtab td,.mtab th{text-align:left;line-height:1.5}
+.mtab tbody th{font-weight:850;color:var(--brand);white-space:nowrap}
+.mtab td:nth-child(2){background:color-mix(in srgb,var(--plan-bg) 50%,transparent)}
+.rep-head{display:flex;gap:var(--s3);align-items:center}
+.rep-head .card-h{margin:0}
+.chan{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.chan li{display:flex;flex-direction:column;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2);font-size:.93rem;line-height:1.5}
+.chan b{font-size:.86rem;color:var(--ink-2)}
+.dodont{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s4)}
+.do,.dont{border-radius:var(--r-md);padding:var(--s3) var(--s4)}
+.do{background:var(--false-bg)}.dont{background:var(--conf-bg)}
+.do h4,.dont h4{margin:0 0 4px;font-size:.92rem;font-weight:900}
+.do h4{color:var(--false)}.dont h4{color:var(--conf)}
+.do h4::before{content:"✓ "}.dont h4::before{content:"✕ "}
+.do ul,.dont ul{margin:0;padding-left:1.1em;font-size:.92rem;line-height:1.6}
+.do li,.dont li{margin:.3em 0}
+@media (min-width:960px){.crime,.world,.dodont{grid-template-columns:1fr 1fr}}
+
 /* 하단 탭바 */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));z-index:40;width:calc(100% - 20px);max-width:calc(var(--maxw) - 20px);height:var(--tab-h);display:grid;grid-template-columns:repeat(5,1fr);background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.5) blur(16px);-webkit-backdrop-filter:saturate(1.5) blur(16px);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh-2);padding:6px}
 .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:var(--ink-3);font-size:.72rem;font-weight:750;border-radius:18px;transition:color .15s,background .2s}

@@ -194,6 +194,41 @@
       '<p class="foot">마지막 확인 '+esc(window.FC_UPDATED_TIME)+' KST · 오프라인 정적 사이트(외부 스크립트·웹폰트 없음). 출처 링크를 열 때만 인터넷이 필요해요.</p>';
   })();
 
+  // ───── 배경 정보 (guide.js) ─────
+  (function(){
+    var G=window.FC_GUIDE; if(!G) return;
+    function srcList(arr){ return '<details class="more-src"><summary>출처 '+arr.length+'건</summary><ol class="srcs">'+arr.map(function(x){return '<li><a href="'+esc(x[3])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a><span>'+esc(x[1])+' · '+esc(x[2])+'</span></li>';}).join("")+'</ol></details>'; }
+    function hbars(t){ var mx=0; t.rows.forEach(function(r){ if(r[1]>mx) mx=r[1]; }); var tot=t.rows.reduce(function(a,r){return a+r[1];},0);
+      return '<figure class="chart"><figcaption>'+esc(t.title)+'</figcaption><ul class="hb">'+t.rows.map(function(r,i){ return '<li><span class="hb-l">'+esc(r[0])+'</span><span class="hb-track"><span class="hb-bar'+(i===0?' hi':'')+'" style="width:'+Math.max(2,r[1]/mx*100).toFixed(1)+'%"></span></span><span class="hb-v">'+fmt(r[1])+'<small>'+(r[1]/tot*100).toFixed(1)+'%</small></span></li>'; }).join("")+'</ul></figure>'; }
+    var S=G.stats;
+    var st='<div class="sec-h"><h2>부정행위 통계 추이</h2><span class="hint">공식 자료(국회 제출) 기준</span></div>'+
+      '<article class="card"><h3 class="card-h2"><span class="num">4</span>수능 부정행위는 해마다 늘었어요</h3>'+chartSVG(S.suneung,"5년간 1,229건 · 모두 무효")+chartSVG(S.device,"AI·스마트안경 수능 적발은 아직 0건")+hbars(S.types)+hbars(S.devices)+'</article>'+
+      '<article class="card"><h3 class="card-h2"><span class="num">5</span>국가자격시험은?</h3>'+chartSVG(S.glasses,"2026년 스마트안경 12건")+'<ul class="tl-mini">'+S.national.map(function(n){return '<li><b>'+esc(n[0])+'</b><span>'+esc(n[1])+'</span></li>';}).join("")+'</ul>'+srcList(S.sources)+'</article>';
+    $("stats").insertAdjacentHTML("beforeend", st);
+
+    var info=$("info");
+    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-meme","밈 유래"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 D-2"]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
+    var law='<article class="card" id="info-law"><h2 class="card-h">처벌 기준, 얼마나 무거울까?</h2>'+
+      '<p class="muted">시험 부정은 ① 시험 무효·응시 제한 같은 <b>행정 제재</b>와 ② 형법상 <b>형사 처벌</b>이 따로 적용될 수 있어요.</p>'+
+      '<div class="crime">'+G.crimes.map(function(c){return '<div class="crime-c"><span class="crime-law">'+esc(c[0])+'</span><b>'+esc(c[1])+'</b><span class="crime-p">'+esc(c[2])+'</span><small>'+esc(c[3])+'</small><a href="'+esc(c[4])+'" target="_blank" rel="noopener">조문 보기 ↗</a></div>';}).join("")+'</div>'+
+      '<h3 class="card-h3">시험별 행정 제재</h3><ul class="sanc">'+G.sanctions.map(function(r){return '<li><span class="sanc-x">'+esc(r[0])+'</span><span class="sanc-b"><b>'+esc(r[2])+'</b><a href="'+esc(r[3])+'" target="_blank" rel="noopener">'+esc(r[1])+' ↗</a></span></li>';}).join("")+'</ul>'+
+      '<h3 class="card-h3">판례·과거 판결</h3><ul class="prec">'+G.precedents.map(function(p){return '<li><span class="prec-y">'+esc(p[0])+'</span><span><b>'+esc(p[1])+'</b> '+esc(p[2])+' <a href="'+esc(p[3])+'" target="_blank" rel="noopener">↗</a></span></li>';}).join("")+'</ul>'+
+      '<p class="muted small">조문은 2026-11-17 기준 요약이에요. 실제 처벌은 사건마다 법원이 판단해요.</p></article>';
+    var world='<article class="card" id="info-world"><h2 class="card-h">해외는 어떻게 하나?</h2><div class="world">'+G.world.map(function(w){return '<div class="w-c"><div class="w-top"><span class="w-flag">'+esc(w.flag)+'</span><b>'+esc(w.country)+'</b><span class="w-d">'+esc(w.date)+'</span></div><h3>'+esc(w.title)+'</h3>'+w.body.map(function(b){return '<p>'+esc(b)+'</p>';}).join("")+srcList(w.src)+'</div>';}).join("")+'</div></article>';
+    var M=G.measures;
+    var meas='<article class="card" id="info-measures"><h2 class="card-h">시험별 대책 한눈에</h2><div class="tw"><table class="mtab"><thead><tr><th scope="col">구분</th>'+M.cols.map(function(c){return '<th scope="col">'+esc(c)+'</th>';}).join("")+'</tr></thead><tbody>'+M.rows.map(function(r){return '<tr><th scope="row">'+esc(r[0])+'</th>'+r.slice(1).map(function(c){return '<td>'+esc(c)+'</td>';}).join("")+'</tr>';}).join("")+'</tbody></table></div><p class="hint">표는 옆으로 밀어서 볼 수 있어요.</p><ul class="bul">'+M.notes.map(function(n){return '<li>'+lead(n)+'</li>';}).join("")+'</ul>'+srcList(M.src)+'</article>';
+    var T2=G.transparency;
+    var open='<article class="card" id="info-open"><h2 class="card-h">성적 통계, 공개되고 있나?</h2><ul class="bul">'+T2.items.map(function(n){return '<li>'+lead(n)+'</li>';}).join("")+'</ul>'+srcList(T2.src)+'</article>';
+    var R=G.report;
+    var rep='<article class="card report" id="info-report"><div class="rep-head">'+FN.svg("conf",72)+'<div><h2 class="card-h">제보·대처 가이드</h2><p class="muted">의심되면 공식 채널로! 공개 저격은 하지 말라냥.</p></div></div>'+
+      '<h3 class="card-h3">어디에 제보하나</h3><ul class="chan">'+R.channels.map(function(c){return '<li><b>'+esc(c[0])+'</b><span>'+(c[2]?'<a href="'+esc(c[2])+'" target="_blank" rel="noopener">'+esc(c[1])+' ↗</a>':esc(c[1]))+'</span></li>';}).join("")+'</ul>'+
+      '<div class="dodont"><div class="do"><h4>이렇게</h4><ul>'+R.dos.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul></div><div class="dont"><h4>이건 안 돼요</h4><ul>'+R.donts.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul></div></div>'+
+      '<h3 class="card-h3">알아둘 법</h3><ul class="sanc">'+R.laws.map(function(l){return '<li><span class="sanc-x">'+esc(l[0])+'</span><span class="sanc-b"><b>'+esc(l[1])+'</b><a href="'+esc(l[2])+'" target="_blank" rel="noopener">조문 보기 ↗</a></span></li>';}).join("")+'</ul></article>';
+    // 소개 카드 뒤에 바로가기, 판정 기준 뒤에 새 섹션들
+    var intro=info.querySelector(".intro"); if(intro) intro.insertAdjacentHTML("afterend", nav);
+    var sun=$("info-suneung"); if(sun) sun.insertAdjacentHTML("beforebegin", law+world+meas+open+rep);
+  })();
+
   // 다크 모드
   var tb=$("theme"), root=document.documentElement;
   function isDark(){ var a=root.getAttribute("data-theme"); return a? a==="dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; }
