@@ -256,3 +256,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
 
   syncChips(); renderFeed(); route();
 })();
+
+(function(){var b=document.getElementById("sn-banner");if(!b)return;var d=sunDday();if(d==="종료")return;
+document.getElementById("sn-b-badge").textContent=d;
+document.getElementById("sn-b-t").textContent=d==="D-DAY"?"오늘 수능, 예정대로 진행 중이에요":"11월 19일 수능, 예정대로 진행돼요";b.hidden=false;})();
