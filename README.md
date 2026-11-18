@@ -19,6 +19,8 @@
    ```js
    window.FC_UPDATED = "2026-11-17";            // 카드의 '마지막 확인일'
    window.FC_UPDATED_TIME = "2026-11-17 23:00"; // 상단 배지·홈에 표시 (KST)
+   window.FC_TAKEAWAYS = [{h:"굵은 제목.", t:"한 줄 설명."}, ...]; // 홈 '오늘의 핵심 3줄'
+   window.FC_TAKEAWAY_NOTE = {k:"내일 주목할 것", t:"한 줄."};     // 선택, 3줄 아래 메모
    ```
 2. 사건을 추가·수정할 때는 `FC_CASES` 항목을 편집합니다.
    ```js

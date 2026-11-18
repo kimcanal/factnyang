@@ -108,6 +108,9 @@ main{padding:0 var(--s4)}
 .three-list li:first-child{border-top:0;padding-top:var(--s1)}
 .three-list li::before{content:counter(t);position:absolute;left:0;top:calc(var(--s3) + 1px);width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:900;font-size:.85rem;display:grid;place-items:center}
 .three-list li:first-child::before{top:calc(var(--s1) + 1px)}
+.three-foot{margin:var(--s3) 0 0;padding:10px 14px;border-radius:14px;background:var(--plan-bg);color:var(--ink);font-size:.92rem;line-height:1.55}
+.three-foot b{display:block;font-size:.75rem;font-weight:850;letter-spacing:.04em;color:var(--plan);margin:0 0 2px}
+.three-foot[hidden]{display:none}
 
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:var(--s6) 2px var(--s3)}
 .sec-h h2{margin:0;font-size:1.15rem;font-weight:850;letter-spacing:-.02em}

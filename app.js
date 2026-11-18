@@ -41,6 +41,26 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
   $("upd").textContent = window.FC_UPDATED_TIME || window.FC_UPDATED;
   $("upd-top").textContent = (window.FC_UPDATED_TIME || window.FC_UPDATED).replace(/^\d{4}-/,"").replace("-","/")+" KST";
 
+  (function(){
+    var list=$("three-list"), items=window.FC_TAKEAWAYS||[];
+    if(list && items.length){
+      list.innerHTML=items.map(function(it){
+        return "<li><b>"+esc(it.h)+"</b> "+esc(it.t)+"</li>";
+      }).join("");
+    }
+    var foot=$("three-foot"), note=window.FC_TAKEAWAY_NOTE;
+    if(foot && note && note.t){
+      foot.innerHTML="<b>"+esc(note.k)+"</b>"+esc(note.t);
+      foot.hidden=false;
+    }
+    var dd=$("home-dday");
+    if(dd){
+      var d=sunDday();
+      dd.textContent=d==="종료"?"수능 종료":"수능 "+d;
+    }
+  })();
+
+
   // 홈: 판정 타일
   var cur = C.filter(function(c){return !c.past;});
   $("tiles").innerHTML = ST.map(function(s){
