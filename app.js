@@ -281,6 +281,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
       '<div class="vs" role="group" aria-label="주장과 공식 입장"><div class="vs-c claim"><div class="vs-k">연기 주장</div><p>대책이 충분하지 않으면 시험을 미루거나, 최소한 연기 검토와 비상 대책을 준비해야 한다는 요구가 나왔어요.</p></div><div class="vs-c off"><div class="vs-k">'+esc(P.official.label)+'</div>'+P.official.items.map(function(t){return '<p>'+lead(t)+'</p>';}).join("")+'</div></div>'+
       '<h3 class="card-h3">확인된 유튜브 영상</h3><p class="muted small">주소가 열리는 영상만 실었어요. 아래 한 줄은 주장 요약이며, 팩트냥이의 평가가 아니에요.</p><ul class="vlist">'+vids+'</ul>'+
       '<h3 class="card-h3">SNS·공개 발언</h3><p class="muted small">원본 SNS 주소를 확인하지 못해, 보도된 발언을 뉴스 출처와 함께 적어요.</p><ul class="vlist">'+st+'</ul>'+
+      (P.court?'<h3 class="card-h3">법원 판단은?</h3><p>'+esc(P.court)+'</p>':'')+
       '<h3 class="card-h3">청원은?</h3><p>'+esc(P.petition)+'</p>'+
       '<h3 class="card-h3">과거에도 미룬 적 있나</h3><ul class="prec">'+prec+'</ul>'+
       srcList(P.sources)+'</article>') : "";
