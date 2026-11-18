@@ -432,3 +432,41 @@ td small{display:block;color:var(--ink-3);font-size:.75rem}
 :root[data-theme=dark] .sn-banner{background:linear-gradient(135deg,#3A2A1C,#3A1F2C);border-color:#6A4A22;color:#F4EFF8;box-shadow:none}
 :root[data-theme=dark] .sn-b-txt small{color:#E3B98F}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .sn-banner{background:linear-gradient(135deg,#3A2A1C,#3A1F2C);border-color:#6A4A22;color:#F4EFF8;box-shadow:none}:root:not([data-theme=light]) .sn-b-txt small{color:#E3B98F}}
+
+/* ── SNS 이상한 합격 8가지 ── */
+#info-claims8,.jump,[id^="info-"]{scroll-margin-top:72px}
+.c8-sec > .card-h{margin-top:2px}
+
+.badge.s-fact,.tag.s-fact{background:var(--plan-bg);color:var(--plan)}
+.badge.s-part,.tag.s-part{background:var(--inv-bg);color:var(--inv)}
+.badge.s-unk,.tag.s-unk{background:var(--surface-2);color:var(--ink-2)}
+
+.c8-home{display:block;position:relative;text-decoration:none;color:var(--ink);margin-top:var(--s4);padding:16px 44px 16px 16px;background:linear-gradient(180deg,var(--surface),var(--surface-3))}
+.c8-home .chev{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:1.35rem}
+.c8-home-k{display:inline-block;font-size:.72rem;font-weight:850;letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);border-radius:var(--r-pill);padding:3px 9px;margin:0 0 8px}
+.c8-home b{display:block;font-size:1.06rem;line-height:1.35;margin:0 0 8px}
+.c8-home-v{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.c8-home small{display:block;color:var(--ink-2);font-size:.86rem;line-height:1.45}
+
+.c8-warn{margin:0;padding:12px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);font-size:.9rem;line-height:1.55;color:var(--ink)}
+.c8-sum{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+.c8-item{border:1.5px solid var(--line);border-radius:16px;background:var(--surface);margin:0 0 10px;overflow:hidden}
+.c8-item[open]{box-shadow:var(--sh-1);border-color:color-mix(in srgb,var(--brand) 25%,var(--line))}
+.c8-item summary{list-style:none;cursor:pointer;padding:13px 14px;display:grid;grid-template-columns:28px 1fr;gap:2px 10px;align-items:start}
+.c8-item summary::-webkit-details-marker,.c8-item summary::marker{display:none;content:""}
+.c8-n{grid-row:1 / span 2;width:28px;height:28px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-weight:900;font-size:.85rem;display:grid;place-items:center;margin-top:2px}
+.c8-top{grid-column:2;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.c8-top b{font-size:.95rem;line-height:1.4;font-weight:800}
+.c8-one{grid-column:2;font-size:.88rem;color:var(--ink-2);line-height:1.5;font-weight:500}
+.c8-item summary{position:relative;padding-right:28px}
+.c8-item summary::after{content:"▾";position:absolute;right:12px;top:14px;color:var(--ink-3);font-size:.9rem;transition:transform .18s}
+.c8-item[open] summary::after{transform:rotate(180deg)}
+.c8-body{padding:0 14px 14px 14px;margin:0 4px 4px;border-top:1px dashed var(--line);padding-top:10px}
+.c8-body h3{margin:12px 0 4px;font-size:.75rem;font-weight:850;letter-spacing:.04em;color:var(--ink-3)}
+.c8-body p{margin:0 0 8px;font-size:.95rem;line-height:1.6}
+.c8-rel{font-size:.9rem}
+.c8-rel a{font-weight:750}
+
+@media (min-width:960px){
+  .c8-home{max-width:none}
+}
