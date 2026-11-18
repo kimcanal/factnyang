@@ -34,22 +34,23 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
   function c8cls(v){ return v==="사실"?"s-fact":v==="일부 사실·과장"?"s-part":v==="거짓"?"s-false":"s-unk"; }
   function c8counts(items){
     var o={}; (items||[]).forEach(function(it){ o[it.verdict]=(o[it.verdict]||0)+1; });
-    return ["거짓","일부 사실·과장","확인 불가","사실"].filter(function(k){return o[k];}).map(function(k){ return {k:k,n:o[k],cls:c8cls(k)}; });
+    return ["거짓","일부 사실·과장","확인 불가","확인 안 됨(커뮤니티 주장)","사실"].filter(function(k){return o[k];}).map(function(k){ return {k:k,n:o[k],cls:c8cls(k)}; });
   }
   function claims8Home(){
     var D=window.FC_CLAIMS8; if(!D) return "";
     var chips=c8counts(D.items).map(function(x){ return '<span class="badge '+x.cls+'">'+esc(x.k)+' '+x.n+'</span>'; }).join("");
     return '<a class="card c8-home" href="#info-claims8"><span class="c8-home-k">팩트체크</span><b>SNS에 도는 이상한 합격 8가지</b><span class="c8-home-v">'+chips+'</span><small>숫자가 맞아도 특정인의 부정 증거는 아니에요</small><span class="chev" aria-hidden="true">›</span></a>';
   }
-  function claims8Section(){
-    var D=window.FC_CLAIMS8; if(!D) return "";
+  function claims8Section(D){
+    D=D||window.FC_CLAIMS8; if(!D) return "";
+    var sid=D.id||"info-claims8", ttl=D.title||"SNS에 도는 이상한 합격 8가지", pre=sid==="info-claims8"?"c8-":"c11-";
     var chips=c8counts(D.items).map(function(x){ return '<span class="badge '+x.cls+'">'+esc(x.k)+' '+x.n+'</span>'; }).join("");
     var items=D.items.map(function(it){
       var rel=(it.related||[]).map(function(r){ return '<a href="#case/'+esc(r[0])+'">'+esc(r[1])+'</a>'; }).join(" · ");
       var src='<details class="more-src"><summary>출처 '+(it.sources||[]).length+'건</summary><ol class="srcs">'+(it.sources||[]).map(function(x){return '<li><a href="'+esc(x[3])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a><span>'+esc(x[1])+' · '+esc(x[2])+'</span></li>';}).join("")+'</ol></details>';
-      return '<details class="c8-item" id="c8-'+it.n+'"><summary><span class="c8-n">'+it.n+'</span><span class="c8-top"><span class="badge '+c8cls(it.verdict)+'">'+esc(it.verdict)+'</span><b>'+esc(it.claim)+'</b></span><span class="c8-one">'+esc(it.one)+'</span></summary><div class="c8-body"><h3>실제 숫자</h3><p>'+lead(it.nums)+'</p><h3>어떻게 읽으면 되나</h3><p>'+lead(it.explain)+'</p>'+(rel?'<p class="c8-rel">관련 사건 '+rel+'</p>':'')+src+'</div></details>';
+      return '<details class="c8-item" id="'+pre+it.n+'"><summary><span class="c8-n">'+it.n+'</span><span class="c8-top"><span class="badge '+c8cls(it.verdict)+'">'+esc(it.verdict)+'</span><b>'+esc(it.claim)+'</b></span><span class="c8-one">'+esc(it.one)+'</span></summary><div class="c8-body"><h3>'+esc(D.h1||"실제 숫자")+'</h3><p>'+lead(it.nums)+'</p><h3>'+esc(D.h2||"어떻게 읽으면 되나")+'</h3><p>'+lead(it.explain)+'</p>'+(rel?'<p class="c8-rel">관련 사건 '+rel+'</p>':'')+src+'</div></details>';
     }).join("");
-    return '<article class="card c8-sec" id="info-claims8"><h2 class="card-h">SNS에 도는 이상한 합격 8가지</h2><p>'+esc(D.lead)+'</p><p class="c8-warn">'+esc(D.warn)+'</p><div class="c8-sum">'+chips+'</div>'+items+'</article>';
+    return '<article class="card c8-sec" id="'+esc(sid)+'"><h2 class="card-h">'+esc(ttl)+'</h2><p>'+esc(D.lead)+'</p><p class="c8-warn">'+esc(D.warn)+'</p><div class="c8-sum">'+chips+'</div>'+items+'</article>';
   }
 
   // 마스코트 배치
@@ -161,6 +162,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
     h+='<section class="sh-sec"><h3><span class="dot ok"></span>확인된 사실</h3><ul>'+c.facts.map(function(f){return '<li>'+lead(f)+'</li>';}).join("")+'</ul></section>';
     h+='<section class="sh-sec counter"><h3><span class="dot alt"></span>'+(c.status==="확정"?"남은 쟁점·한계":"반대 근거·당사자 해명")+'</h3><ul>'+c.counter.map(function(f){return '<li>'+lead(f)+'</li>';}).join("")+'</ul></section>';
     if(c.chart) h+='<section class="sh-sec"><h3><span class="dot data"></span>데이터</h3>'+chartSVG(c.chart,ANN[c.id])+'</section>';
+    if(c.id==="leet-perfect" && window.FC_CLAIMS11) h+='<a class="card c8-home sh-c11" href="#info-claims11"><span class="c8-home-k">팩트체크</span><b>'+esc(window.FC_CLAIMS11.title)+'</b><span class="c8-home-v">'+c8counts(window.FC_CLAIMS11.items).map(function(x){ return '<span class="badge '+x.cls+'">'+esc(x.k)+' '+x.n+'</span>'; }).join("")+'</span><small>개명·게임·책 수익 등 SNS 이미지 속 한 줄씩 보도와 맞춰 봤어요</small><span class="chev" aria-hidden="true">›</span></a>';
     if(c.meme) h+='<p class="sh-memo">'+esc(c.meme)+'</p>';
     h+='<section class="sh-sec"><h3><span class="dot src"></span>출처 '+c.sources.length+'건</h3><ol class="srcs">'+c.sources.map(function(x){return '<li><a href="'+esc(x[3])+'" target="_blank" rel="noopener">'+esc(x[0])+'</a><span>'+esc(x[1])+' · '+esc(x[2])+'</span></li>';}).join("")+'</ol></section>';
     h+='<p class="sh-checked">마지막 확인 '+esc(window.FC_UPDATED_TIME||window.FC_UPDATED)+' KST</p>';
@@ -250,7 +252,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
     $("stats").insertAdjacentHTML("beforeend", st);
 
     var info=$("info");
-    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-claims8","합격 8가지"],["info-meme","밈 유래"],["info-postpone","수능 연기"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 "+sunDday()]].map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
+    var nav='<nav class="jump" aria-label="정보 바로가기">'+[["info-claims8","합격 8가지"]].concat(window.FC_CLAIMS11?[["info-claims11","11가지 주장"]]:[]).concat([["info-meme","밈 유래"],["info-postpone","수능 연기"],["info-law","처벌 기준"],["info-world","해외는?"],["info-measures","시험별 대책"],["info-open","성적 공개"],["info-report","제보 가이드"],["info-suneung","수능 "+sunDday()]]).map(function(j){return '<a href="#'+j[0]+'">'+j[1]+'</a>';}).join("")+'</nav>';
     var law='<article class="card" id="info-law"><h2 class="card-h">처벌 기준, 얼마나 무거울까?</h2>'+
       '<p class="muted">시험 부정은 ① 시험 무효·응시 제한 같은 <b>행정 제재</b>와 ② 형법상 <b>형사 처벌</b>이 따로 적용될 수 있어요.</p>'+
       '<div class="crime">'+G.crimes.map(function(c){return '<div class="crime-c"><span class="crime-law">'+esc(c[0])+'</span><b>'+esc(c[1])+'</b><span class="crime-p">'+esc(c[2])+'</span><small>'+esc(c[3])+'</small><a href="'+esc(c[4])+'" target="_blank" rel="noopener">조문 보기 ↗</a></div>';}).join("")+'</div>'+
@@ -285,7 +287,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
       '<h3 class="card-h3">청원은?</h3><p>'+esc(P.petition)+'</p>'+
       '<h3 class="card-h3">과거에도 미룬 적 있나</h3><ul class="prec">'+prec+'</ul>'+
       srcList(P.sources)+'</article>') : "";
-    var intro=info.querySelector(".intro"); if(intro) intro.insertAdjacentHTML("afterend", nav+claims8Section());
+    var intro=info.querySelector(".intro"); if(intro) intro.insertAdjacentHTML("afterend", nav+claims8Section()+(window.FC_CLAIMS11?claims8Section(window.FC_CLAIMS11):""));
     var meme=$("info-meme"); if(meme && post) meme.insertAdjacentHTML("afterend", post);
     var sun=$("info-suneung"); if(sun) sun.insertAdjacentHTML("beforebegin", law+world+meas+open+rep);
   })();
