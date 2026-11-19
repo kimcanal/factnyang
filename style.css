@@ -471,3 +471,7 @@ td small{display:block;color:var(--ink-3);font-size:.75rem}
   .c8-home{max-width:none}
 }
 .sh-c11{margin:var(--s4) 0}
+
+.sh-care{background:var(--surface-2);border-left:4px solid var(--ink-2);border-radius:var(--r-md);padding:var(--s3) var(--s4);margin:var(--s3) 0;font-size:.95rem;color:var(--ink)}
+.sh-care p{margin:0}
+.sh-care .sh-help{margin-top:var(--s2)}

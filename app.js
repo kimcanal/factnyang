@@ -96,7 +96,7 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
   var recent = cur.slice().sort(function(a,b){ return a.date<b.date?1:a.date>b.date?-1:0; }).slice(0,9);
   $("stories").innerHTML = recent.map(function(c){
     var s=SM[c.status], k=KEY[c.id]||["",""];
-    return '<button class="story '+s.cls+'" type="button" data-id="'+c.id+'"><span class="story-top">'+badge(c.status)+(c.isNew?'<span class="new">NEW</span>':'')+'</span><span class="story-cat">'+FN.svg(s.mood,64)+'</span><span class="story-t">'+esc(c.title)+'</span><span class="story-k">'+esc(k[0])+'<small>'+esc(k[1])+'</small></span><span class="story-d">'+esc(c.exam)+' · '+esc(c.date)+'</span></button>';
+    return '<button class="story '+s.cls+'" type="button" data-id="'+c.id+'"><span class="story-top">'+badge(c.status)+(c.isNew?'<span class="new">NEW</span>':'')+'</span>'+(c.care?'':'<span class="story-cat">'+FN.svg(s.mood,64)+'</span>')+'<span class="story-t">'+esc(c.title)+'</span><span class="story-k">'+esc(k[0])+'<small>'+esc(k[1])+'</small></span><span class="story-d">'+esc(c.exam)+' · '+esc(c.date)+'</span></button>';
   }).join("");
   [].forEach.call(document.querySelectorAll(".story"), function(b){ b.onclick=function(){ openCase(b.dataset.id); }; });
 
@@ -154,9 +154,10 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
   function openCase(id){ location.hash = "#case/"+id; }
   function showSheet(c){
     var s=SM[c.status], k=KEY[c.id]||["",""];
-    var h='<div class="sh-head '+s.cls+'"><div class="sh-cat">'+FN.svg(s.mood,88)+'</div><div class="bubble sm"><p class="bubble-t">'+esc(s.say)+'</p></div></div>';
+    var h=c.care?'':'<div class="sh-head '+s.cls+'"><div class="sh-cat">'+FN.svg(s.mood,88)+'</div><div class="bubble sm"><p class="bubble-t">'+esc(s.say)+'</p></div></div>';
     h+='<div class="sh-meta">'+badge(c.status)+(c.isNew?'<span class="new">NEW</span>':'')+'<span>'+esc(c.exam)+' · '+esc(c.type)+' · '+esc(c.date)+'</span></div>';
     h+='<h2 id="sheet-title" class="sh-title">'+esc(c.title)+'</h2>';
+    if(c.care) h+='<div class="sh-care" role="note"><p>'+esc(c.care.t)+'</p><p class="sh-help"><b>'+esc(c.care.help)+'</b></p></div>';
     h+='<div class="sh-claim"><span class="lab">주장</span><p>'+esc(c.claim)+'</p></div>';
     h+='<div class="sh-key '+s.cls+'"><b>'+esc(k[0])+'</b><span>'+esc(k[1])+'</span></div>';
     h+='<section class="sh-sec"><h3><span class="dot ok"></span>확인된 사실</h3><ul>'+c.facts.map(function(f){return '<li>'+lead(f)+'</li>';}).join("")+'</ul></section>';
