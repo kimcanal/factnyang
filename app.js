@@ -199,9 +199,23 @@ function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.g
   }
   window.addEventListener("hashchange",route);
 
-  // 타임라인
+  // 타임라인 (화면은 최신순: 날짜 내림차순, 같은 날은 시각·추가순. 데이터 배열은 오래된 순 유지)
+  function tlMin(t){
+    var s=t[1], m=s.match(/\[(\d{1,2})시(?:\s*(\d{1,2})분)?께?/);
+    if(m) return parseInt(m[1],10)*60+parseInt(m[2]||"0",10);
+    if(s.indexOf("[밤]")===0){ var n=s.match(/(\d{1,2})시(?!간)/); return n?parseInt(n[1],10)*60:22*60; }
+    return -1;
+  }
+  var tlItems=T.map(function(t,i){ return {t:t,i:i}; });
+  tlItems.sort(function(a,b){
+    if(a.t[0]!==b.t[0]) return a.t[0]<b.t[0]?1:-1;
+    var am=tlMin(a.t), bm=tlMin(b.t);
+    if(am>=0 && bm>=0 && am!==bm) return bm-am;
+    return b.i-a.i;
+  });
   var lastDate="";
-  $("tl").innerHTML = T.map(function(t){
+  $("tl").innerHTML = tlItems.map(function(item){
+    var t=item.t;
     var s=SM[t[2]], cls=s?s.cls:(t[2]==="예정"?"s-plan":"s-other"), ic=s?s.ic:(t[2]==="예정"?"◷":"•");
     var d=t[0].slice(5).replace("-","/"), show=d!==lastDate; lastDate=d;
     var night = t[1].indexOf("[밤]")===0, txt = night? t[1].slice(4) : t[1];
