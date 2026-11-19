@@ -1,4 +1,4 @@
-function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());var d=Math.round((Date.UTC(2026,10,19)-t)/86400000);return d>0?"D-"+d:(d===0?"D-DAY":"종료");}
+function sunDday(){var now=new Date(Date.now()+9*3600*1000);var t=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());var d=Math.round((Date.UTC(2026,10,19)-t)/86400000);if(d>0)return"D-"+d;if(d<0)return"종료";return(now.getUTCHours()*60+now.getUTCMinutes()>=17*60+45)?"종료":"D-DAY";}
 (function(){
   "use strict";
   var C = window.FC_CASES, T = window.FC_TIMELINE, P = window.FC_POWER, S = window.FC_SUNEUNG, FN = window.FactNyang;
